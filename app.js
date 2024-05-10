@@ -4,33 +4,46 @@ var word = [];
 var answerWord = "tea";
 
 function fetchData() {
-    maxLetterCount = 0;
+  maxLetterCount = 0;
 
-    fetch('https://random-word-api.herokuapp.com/word')
-        .then(response => response.json())
-        .then(data => {
-            answerWord = data[0];
-            maxLetterCount = answerWord.length;
-            console.log(data, maxLetterCount);
+  fetch("https://random-word-api.herokuapp.com/word")
+    .then((response) => response.json())
+    .then((data) => {
+      answerWord = data[0];
+      maxLetterCount = answerWord.length;
+      console.log(data, maxLetterCount);
 
-            if(maxLetterCount > 7) {
-                fetchData();
-            }
-            else {
-                for(var i = 0; i < maxLetterCount; i++) {
-                    var newQLetter = document.createElement("div");
-                    newQLetter.classList.add("q-letter");
-                    document.querySelector(".words").appendChild(newQLetter);
-            }
+      if (maxLetterCount > 7) {
+        fetchData();
+      } else {
+        for (var i = 0; i < maxLetterCount; i++) {
+          var newQLetter = document.createElement("div");
+          newQLetter.classList.add("q-letter");
+          document.querySelector(".words").appendChild(newQLetter);
         }
+      }
     })
-        .catch(error => {
-            // Handle any errors
-            console.error(error);
-        });
+    .catch((error) => {
+      // Handle any errors
+      console.error(error);
+    });
 }
 
 fetchData();
+
+const indicateWrongAnswer = () => {
+  setTimeout(() => {
+    $("body").css("background-color", "white");
+  }, 100);
+  $("body").css("background-color", "red");
+};
+
+const indicateCorrectAnswer = () => {
+  setTimeout(() => {
+    $("body").css("background-color", "white");
+  }, 100);
+  $("body").css("background-color", "green");
+};
 
 // function setWord(event) {
 
@@ -47,14 +60,14 @@ fetchData();
 
 //         if(userWord === answerWord) {
 //             setTimeout(() => {
-//                 $("body").css("background-color", "white");     
+//                 $("body").css("background-color", "white");
 //             }, 100);
 //             $("body").css("background-color", "green");
 //         }
 
 //         else {
 //             setTimeout(() => {
-//                 $("body").css("background-color", "white");     
+//                 $("body").css("background-color", "white");
 //             }, 100);
 //             $("body").css("background-color", "red");
 //         }
@@ -62,50 +75,27 @@ fetchData();
 // }
 
 function setWord(event) {
-    console.debug('Entering setWord function');
-    
-    if (letterCount < maxLetterCount) {
-        console.debug('letterCount:', letterCount);
-        $(".q-letter")[letterCount].innerHTML = event;
-        word.push(event);
-        console.debug('word:', word);
-        console.debug('word joined:', word.join(''));
-        letterCount++;
-    }
-    
-    console.debug('letterCount after increment:', letterCount);
-    
-    if (letterCount === maxLetterCount) {
-        console.debug('Reached maxLetterCount');
-        
-        console.debug('word joined:', word.join(''));
-        console.debug('answerWord:', answerWord);
-        
-        var userWord = word.join('');
+  console.log(event);
 
-        if(userWord === answerWord) {
-            console.debug('Word matches answer');
-            setTimeout(() => {
-                $("body").css("background-color", "white");
-            }, 100);
-            $("body").css("background-color", "green");
-        } else {
-            console.debug('Word does not match answer');
-            setTimeout(() => {
-                $("body").css("background-color", "white");
-            }, 100);
-            $("body").css("background-color", "red");
-        }
+  if (answerWord.includes(event)) {
+    for (let i = 0; i < maxLetterCount; i++) {
+      if (answerWord[i] === event) {
+        $(".q-letter")[i].innerHTML = event;
+      }
     }
+    indicateCorrectAnswer();
+  } else {
+    indicateWrongAnswer();
+  }
 }
 
-
 $(".letter").on("click", function() {
-    setWord(this.innerHTML);
+  setWord(this.innerHTML.toLowerCase());
 });
 
 $(document).on("keydown", function(event) {
-    if(/^[a-zA-Z]$/.test(event.key)) {
-        setWord(event.key.toLowerCase());
-    }
-})
+  console.log(event.key);
+  if (/^[a-zA-Z]$/.test(event.key)) {
+    setWord(event.key.toLowerCase());
+  }
+});

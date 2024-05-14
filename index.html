@@ -1,99 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-    <title>Hangman</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
+  <title>Hangman</title>
 </head>
 
 <body>
-    <div class="top">
-        <div class="container" id="container">
-            <!-- <svg width="28" height="134" viewBox="0 0 28 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="top">
+    <div class="container" id="container">
+      <!-- <svg width="28" height="134" viewBox="0 0 28 134" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="28" height="134" />
                 <path d="M14 106.083V27.9167" stroke="black" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" />
             </svg> -->
-            <div class="child pole"></div>
-            <div class="child top-pole"></div>
-            <div class="child rope"></div>
-            <div class="child head"></div>
-            <div class="child body"></div>
-            <div class="child left-arm"></div>
-            <div class="child right-arm"></div>
-            <div class="child left-leg"></div>
-            <div class="child right-leg"></div>
-            <div class="ground"></div>
-        </div>
-
-        <div class="words">
-        </div>
+      <div class="pole"></div>
+      <div class="game-part top-pole"></div>
+      <div class="game-part rope"></div>
+      <div class="game-part head"></div>
+      <div class="game-part body"></div>
+      <div class="game-part left-arm"></div>
+      <div class="game-part right-arm"></div>
+      <div class="game-part left-leg"></div>
+      <div class="game-part right-leg"></div>
+      <div class="ground"></div>
     </div>
 
-    <div class="keyboard">
-        <div class="first-row">
-            <div class="letter q">q</div>
-            <div class="letter w">w</div>
-            <div class="letter e">e</div>
-            <div class="letter r">r</div>
-            <div class="letter t">t</div>
-            <div class="letter y">y</div>
-            <div class="letter u">u</div>
-            <div class="letter i">i</div>
-            <div class="letter o">o</div>
-            <div class="letter p">p</div>
-        </div>
-        <div class="second-row">
-            <div class="letter a">a</div>
-            <div class="letter s">s</div>
-            <div class="letter d">d</div>
-            <div class="letter f">f</div>
-            <div class="letter g">g</div>
-            <div class="letter h">h</div>
-            <div class="letter j">j</div>
-            <div class="letter k">k</div>
-            <div class="letter l">l</div>
-        </div>
-        <div class="third-row">
-            <div class="letter z">z</div>
-            <div class="letter x">x</div>
-            <div class="letter c">c</div>
-            <div class="letter v">v</div>
-            <div class="letter b">b</div>
-            <div class="letter n">n</div>
-            <div class="letter m">m</div>
-        </div>
-    </div>
+    <div class="words"></div>
+  </div>
 
-    <!-- <script>
+  <div class="keyboard">
+    <div class="first-row">
+      <div class="letter q">q</div>
+      <div class="letter w">w</div>
+      <div class="letter e">e</div>
+      <div class="letter r">r</div>
+      <div class="letter t">t</div>
+      <div class="letter y">y</div>
+      <div class="letter u">u</div>
+      <div class="letter i">i</div>
+      <div class="letter o">o</div>
+      <div class="letter p">p</div>
+    </div>
+    <div class="second-row">
+      <div class="letter a">a</div>
+      <div class="letter s">s</div>
+      <div class="letter d">d</div>
+      <div class="letter f">f</div>
+      <div class="letter g">g</div>
+      <div class="letter h">h</div>
+      <div class="letter j">j</div>
+      <div class="letter k">k</div>
+      <div class="letter l">l</div>
+    </div>
+    <div class="third-row">
+      <div class="letter z">z</div>
+      <div class="letter x">x</div>
+      <div class="letter c">c</div>
+      <div class="letter v">v</div>
+      <div class="letter b">b</div>
+      <div class="letter n">n</div>
+      <div class="letter m">m</div>
+    </div>
+  </div>
+
+  <!-- <script>
         // Get the container element
         const container = document.getElementById("container");
 
-        // Get the child elements
-        const children = container.getElementsByClassName("child");
+        // Get the game-part elements
+        const game-partren = container.getElementsByClassName("child");
 
-        // Calculate the dimensions of the container based on the child elements
+        // Calculate the dimensions of the container based on the game-part elements
         let maxWidth = 0;
         let maxHeight = 0;
 
-        for (let i = 0; i < children.length; i++) {
-            const child = children[i];
-            const childRect = child.getBoundingClientRect();
+        for (let i = 0; i < game-partren.length; i++) {
+            const game-part = children[i];
+            const game-partRect = child.getBoundingClientRect();
 
-            maxWidth = Math.max(maxWidth, childRect.right);
-            maxHeight = Math.max(maxHeight, childRect.bottom);
+            maxWidth = Math.max(maxWidth, game-partRect.right);
+            maxHeight = Math.max(maxHeight, game-partRect.bottom);
         }
 
         // Set the dimensions of the container
         container.style.width = maxWidth + "px";
         container.style.height = maxHeight + "px";
     </script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>

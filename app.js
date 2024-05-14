@@ -1,7 +1,9 @@
-var letterCount = 0;
-var maxLetterCount;
-var word = [];
-var answerWord = "tea";
+let letterCount = 0;
+let maxLetterCount;
+let word = [];
+let answerWord = "tea";
+let wrongAttemptCount = 0;
+const maxAttemptCount = 7;
 
 function fetchData() {
   maxLetterCount = 0;
@@ -16,8 +18,8 @@ function fetchData() {
       if (maxLetterCount > 7) {
         fetchData();
       } else {
-        for (var i = 0; i < maxLetterCount; i++) {
-          var newQLetter = document.createElement("div");
+        for (let i = 0; i < maxLetterCount; i++) {
+          let newQLetter = document.createElement("div");
           newQLetter.classList.add("q-letter");
           document.querySelector(".words").appendChild(newQLetter);
         }
@@ -31,14 +33,29 @@ function fetchData() {
 
 fetchData();
 
-const indicateWrongAnswer = () => {
+const indicateWrongWord = (event) => {
+  wrongAttemptCount++;
+
+  $(`.${event}`).css("filter", "brightness(0.5)");
+
   setTimeout(() => {
     $("body").css("background-color", "white");
   }, 100);
   $("body").css("background-color", "red");
+
+  if (wrongAttemptCount == 1) {
+    document.getElementsByClassName("game-part")[0].style.opacity = 1;
+    document.getElementsByClassName("game-part")[1].style.opacity = 1;
+  } else {
+    document.getElementsByClassName("game-part")[
+      wrongAttemptCount
+    ].style.opacity = 1;
+  }
 };
 
-const indicateCorrectAnswer = () => {
+const indicateCorrectWord = (event) => {
+  $(`.${event}`).css("filter", "brightness(0.5)");
+  console.log(`letter ${event}`);
   setTimeout(() => {
     $("body").css("background-color", "white");
   }, 100);
@@ -56,7 +73,7 @@ const indicateCorrectAnswer = () => {
 //     }
 //     if(letterCount === maxLetterCount){
 
-//         var userWord = word.join('');
+//         let userWord = word.join('');
 
 //         if(userWord === answerWord) {
 //             setTimeout(() => {
@@ -83,9 +100,9 @@ function setWord(event) {
         $(".q-letter")[i].innerHTML = event;
       }
     }
-    indicateCorrectAnswer();
+    indicateCorrectWord(event);
   } else {
-    indicateWrongAnswer();
+    indicateWrongWord(event);
   }
 }
 

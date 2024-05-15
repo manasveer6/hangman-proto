@@ -65,6 +65,9 @@ body {
   box-sizing: border-box;
   border-radius: 50%;
   border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .body {
@@ -189,4 +192,63 @@ body {
 
 .game-part {
   opacity: 0;
+}
+
+/* Styling for the eyes */
+.eye {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: black;
+  position: absolute;
+}
+
+.left-eye {
+  left: 12px;
+  top: 15px;
+}
+
+.right-eye {
+  right: 12px;
+  top: 15px;
+}
+
+/* Styling for the mouth */
+.mouth {
+  width: 20px;
+  height: 10px;
+  border-radius: 0 0 20px 20px;
+  background-color: black;
+  position: absolute;
+  bottom: 8px;
+}
+
+.head * {
+  opacity: 0;
+}
+
+.dead-eye {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+}
+
+.dead-eye::before,
+.dead-eye::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  /* Line thickness */
+  height: 100%;
+  background-color: black;
+}
+
+.dead-eye::before {
+  transform: rotate(45deg);
+}
+
+.dead-eye::after {
+  transform: rotate(-45deg);
 }

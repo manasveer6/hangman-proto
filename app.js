@@ -33,8 +33,62 @@ function fetchData() {
 
 fetchData();
 
+const hasPlayerWon = () => {
+  let win = true;
+  for (let i = 0; i < maxLetterCount; i++) {
+    if ($(".q-letter")[i].innerHTML === "") {
+      win = false;
+    }
+  }
+  return win;
+};
+
+const drawHangman = () => {
+  if (wrongAttemptCount === 1) {
+    document.getElementsByClassName("game-part")[0].style.opacity = 1;
+    document.getElementsByClassName("game-part")[1].style.opacity = 1;
+  } else {
+    document.getElementsByClassName("game-part")[
+      wrongAttemptCount
+    ].style.opacity = 1;
+  }
+};
+
+const drawFreeHangman = () => {
+  const hangmangParts = document.getElementsByClassName("game-part");
+  console.log(hangmangParts);
+  Array.from(hangmangParts).forEach((part, index) => {
+    if (index >= 2) {
+      const style = window.getComputedStyle(part);
+      const currentTop = parseInt(style.top, 10);
+      part.style.top = currentTop + 64 + "px";
+      part.style.opacity = 1;
+    }
+  });
+
+  console.log(document.querySelector(".head").children);
+  const smileyElements = document.querySelector(".head").children;
+  Array.from(smileyElements).forEach((element) => (element.style.opacity = 1));
+};
+
+const drawDeadHangman = () => {
+  document.querySelectorAll(".eye").forEach(function(eye) {
+    eye.classList.remove("eye");
+    eye.classList.add("dead-eye");
+    eye.style.opacity = 1;
+  });
+
+  let mouth = document.querySelector(".mouth");
+  mouth.style.transform = "rotate(180deg)";
+  mouth.style.opacity = 1;
+};
+
 const indicateWrongWord = (event) => {
   wrongAttemptCount++;
+
+  if (wrongAttemptCount === maxAttemptCount) {
+    drawDeadHangman();
+  }
 
   $(`.${event}`).css("filter", "brightness(0.5)");
 
@@ -43,14 +97,7 @@ const indicateWrongWord = (event) => {
   }, 100);
   $("body").css("background-color", "red");
 
-  if (wrongAttemptCount == 1) {
-    document.getElementsByClassName("game-part")[0].style.opacity = 1;
-    document.getElementsByClassName("game-part")[1].style.opacity = 1;
-  } else {
-    document.getElementsByClassName("game-part")[
-      wrongAttemptCount
-    ].style.opacity = 1;
-  }
+  drawHangman();
 };
 
 const indicateCorrectWord = (event) => {
@@ -103,6 +150,10 @@ function setWord(event) {
     indicateCorrectWord(event);
   } else {
     indicateWrongWord(event);
+  }
+  if (hasPlayerWon()) {
+    console.log("you win brr");
+    drawFreeHangman();
   }
 }
 

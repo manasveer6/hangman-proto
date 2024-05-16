@@ -26,7 +26,6 @@ function fetchData() {
       }
     })
     .catch((error) => {
-      // Handle any errors
       console.error(error);
     });
 }
@@ -56,7 +55,6 @@ const drawHangman = () => {
 
 const drawFreeHangman = () => {
   const hangmangParts = document.getElementsByClassName("game-part");
-  console.log(hangmangParts);
   Array.from(hangmangParts).forEach((part, index) => {
     if (index >= 2) {
       const style = window.getComputedStyle(part);
@@ -66,7 +64,6 @@ const drawFreeHangman = () => {
     }
   });
 
-  console.log(document.querySelector(".head").children);
   const smileyElements = document.querySelector(".head").children;
   Array.from(smileyElements).forEach((element) => (element.style.opacity = 1));
 };
@@ -102,7 +99,6 @@ const indicateWrongWord = (event) => {
 
 const indicateCorrectWord = (event) => {
   $(`.${event}`).css("filter", "brightness(0.5)");
-  console.log(`letter ${event}`);
   setTimeout(() => {
     $("body").css("background-color", "white");
   }, 100);
@@ -152,7 +148,7 @@ function setWord(event) {
     indicateWrongWord(event);
   }
   if (hasPlayerWon()) {
-    console.log("you win brr");
+    console.log("you win");
     drawFreeHangman();
   }
 }

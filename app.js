@@ -34,6 +34,9 @@ fetchData();
 
 const hasPlayerWon = () => {
   let win = true;
+  if (wrongAttemptCount === maxAttemptCount) {
+    return false;
+  }
   for (let i = 0; i < maxLetterCount; i++) {
     if ($(".q-letter")[i].innerHTML === "") {
       win = false;
@@ -78,6 +81,10 @@ const drawDeadHangman = () => {
   let mouth = document.querySelector(".mouth");
   mouth.style.transform = "rotate(180deg)";
   mouth.style.opacity = 1;
+
+  for (let i = 0; i < maxLetterCount; i++) {
+    $(".q-letter")[i].innerHTML = answerWord[i];
+  }
 };
 
 const indicateWrongWord = (event) => {

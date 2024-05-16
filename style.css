@@ -172,6 +172,8 @@ body {
 .top {
   display: flex;
   gap: 100px;
+  width: 890px;
+  justify-content: space-between;
 }
 
 .words {
